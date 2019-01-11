@@ -1,6 +1,6 @@
 const graphql = require("graphql");
 
-const { GraphQLObjectTpye, GraphQLString } = graphql;
+const { GraphQLObjectTpye, GraphQLString, GraphQLSchema } = graphql;
 
 const BookType = new GraphQLObjectType({
     name: "Book",
@@ -20,17 +20,24 @@ const BookType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: "RootQueryType",
     fields: {
+        // name of the query
         book: {
-            // name of the query
-            type: BookType, // the node on which the query will be made
+            // the node on which the query will be made
+            type: BookType,
+            // arguments to be passed along with the query
             args: {
-                // arguments to be passed along with the query
+                // the id of the book
                 id: {
-                    // the id of the book
                     type: GraphQLString
                 }
             },
+            // once the query is received, this resolve function is fired
             resolve(parent, args) {}
         }
     }
+});
+
+module.exports = new GraphQLSchema({
+    // which query is available to user to use
+    query: RootQuery
 });
