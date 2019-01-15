@@ -1,30 +1,6 @@
-const authors = [
-    { name: "Patrick Rothfuss", age: 44, id: "1" },
-    { name: "Brandon Sanderson", age: 42, id: "2" },
-    { name: "Terry Pratchett", age: 66, id: "3" }
-];
-
-const books = [
-    {
-        name: "Name of the Wind",
-        genre: "Fantasy",
-        id: "1"
-    },
-    {
-        name: "The Final Empire",
-        genre: "Fantasy",
-        id: "2"
-    },
-    {
-        name: "The Long Earth",
-        genre: "Sci-Fi",
-        id: "3"
-    }
-];
-
-const graphql = require("graphql");
+const data = require("./data.js");
 const _ = require("lodash");
-
+const graphql = require("graphql");
 const {
     GraphQLSchema,
     GraphQLObjectType,
@@ -85,7 +61,7 @@ const RootQueryType = new GraphQLObjectType({
             },
             // The resolve function is fired when query is run
             resolve(parent, args) {
-                return _.find(books, { id: args.id });
+                return _.find(data.books, { id: args.id });
             }
         },
         author: {
@@ -96,7 +72,7 @@ const RootQueryType = new GraphQLObjectType({
                 }
             },
             resolve(parent, args) {
-                return _.find(authors, { id: args.id });
+                return _.find(data.authors, { id: args.id });
             }
         }
     }
