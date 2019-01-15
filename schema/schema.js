@@ -91,9 +91,6 @@ const RootQueryType = new GraphQLObjectType({
         author: {
             type: AuthorType,
             args: {
-                name: {
-                    type: GraphQLString
-                },
                 id: {
                     type: GraphQLID
                 }
