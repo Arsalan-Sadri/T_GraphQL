@@ -1,7 +1,37 @@
+const authors = [
+    { name: "Patrick Rothfuss", age: 44, id: "1" },
+    { name: "Brandon Sanderson", age: 42, id: "2" },
+    { name: "Terry Pratchett", age: 66, id: "3" }
+];
+
+const books = [
+    {
+        name: "Name of the Wind",
+        genre: "Fantasy",
+        id: "1"
+    },
+    {
+        name: "The Final Empire",
+        genre: "Fantasy",
+        id: "2"
+    },
+    {
+        name: "The Long Earth",
+        genre: "Sci-Fi",
+        id: "3"
+    }
+];
+
 const graphql = require("graphql");
 const _ = require("lodash");
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
+const {
+    GraphQLSchema,
+    GraphQLObjectType,
+    GraphQLString,
+    GraphQLID,
+    GraphQLInt
+} = graphql;
 
 // Name of the variable (node) used in this code
 const BookType = new GraphQLObjectType({
@@ -16,6 +46,21 @@ const BookType = new GraphQLObjectType({
         },
         genre: {
             type: GraphQLString
+        }
+    })
+});
+
+const AuthorType = new GraphQLObjectType({
+    name: "Author",
+    fields: () => ({
+        id: {
+            type: GraphQLID
+        },
+        name: {
+            type: GraphQLString
+        },
+        age: {
+            type: GraphQLInt
         }
     })
 });
@@ -43,24 +88,6 @@ const RootQueryType = new GraphQLObjectType({
         }
     }
 });
-
-const books = [
-    {
-        name: "Name of the Wind",
-        genre: "Fantasy",
-        id: "1"
-    },
-    {
-        name: "The Final Empire",
-        genre: "Fantasy",
-        id: "2"
-    },
-    {
-        name: "The Long Earth",
-        genre: "Sci-Fi",
-        id: "3"
-    }
-];
 
 module.exports = new GraphQLSchema({
     // which query is available to users to use
