@@ -1,7 +1,7 @@
 const graphql = require("graphql");
 const _ = require("lodash");
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
 
 // Name of the variable (node) used in this code
 const BookType = new GraphQLObjectType({
@@ -9,7 +9,7 @@ const BookType = new GraphQLObjectType({
     name: "Book",
     fields: () => ({
         id: {
-            type: GraphQLString
+            type: GraphQLID
         },
         name: {
             type: GraphQLString
@@ -33,10 +33,10 @@ const RootQueryType = new GraphQLObjectType({
             args: {
                 // ID of the book
                 id: {
-                    type: GraphQLString
+                    type: GraphQLID
                 }
             },
-            // The resolve function is fired when query is run 
+            // The resolve function is fired when query is run
             resolve(parent, args) {
                 return _.find(books, { id: args.id });
             }
