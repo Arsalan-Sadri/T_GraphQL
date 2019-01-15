@@ -69,8 +69,10 @@ const AuthorType = new GraphQLObjectType({
 const RootQueryType = new GraphQLObjectType({
     // Name of the query available to users
     name: "RootQuery",
+    // Here we define all query functions (CRUD) along with their
+    // names, types, arguments/parameters, and resolve function
     fields: {
-        // Name of the query function to be used
+        // Name of the query function to be used, e.g. book(), getBook(), or findBook()
         book: {
             // The node on which the query will be made
             type: BookType,
@@ -84,6 +86,20 @@ const RootQueryType = new GraphQLObjectType({
             // The resolve function is fired when query is run
             resolve(parent, args) {
                 return _.find(books, { id: args.id });
+            }
+        },
+        author: {
+            type: AuthorType,
+            args: {
+                name: {
+                    type: GraphQLString
+                },
+                id: {
+                    type: GraphQLID
+                }
+            },
+            resolve(parent, args) {
+                return _.find(authors, { id: args.id });
             }
         }
     }
