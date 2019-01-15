@@ -3,7 +3,9 @@ const _ = require("lodash");
 
 const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
 
+// Name of the variable (node) used in this code
 const BookType = new GraphQLObjectType({
+    // Name of the node available to users
     name: "Book",
     fields: () => ({
         id: {
@@ -18,21 +20,23 @@ const BookType = new GraphQLObjectType({
     })
 });
 
-const RootQuery = new GraphQLObjectType({
-    name: "RootQueryType",
+// Name of the variable (query) used in this code
+const RootQueryType = new GraphQLObjectType({
+    // Name of the query available to users
+    name: "RootQuery",
     fields: {
-        // name of the query
+        // Name of the query function to be used
         book: {
-            // the node on which the query will be made
+            // The node on which the query will be made
             type: BookType,
-            // arguments to be passed along with the query
+            // Arguments to be passed along with the query function
             args: {
-                // the id of the book
+                // ID of the book
                 id: {
                     type: GraphQLString
                 }
             },
-            // once the query is received, this resolve function is fired
+            // The resolve function is fired when query is run 
             resolve(parent, args) {
                 return _.find(books, { id: args.id });
             }
@@ -59,6 +63,6 @@ const books = [
 ];
 
 module.exports = new GraphQLSchema({
-    // which query is available to user to use
-    query: RootQuery
+    // which query is available to users to use
+    query: RootQueryType
 });
