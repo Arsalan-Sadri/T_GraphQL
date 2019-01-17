@@ -85,6 +85,6 @@ const RootQueryType = new GraphQLObjectType({
 });
 
 module.exports = new GraphQLSchema({
-    // which query is available to users to use
+    // Make query(s) defined above available to users
     query: RootQueryType
 });
